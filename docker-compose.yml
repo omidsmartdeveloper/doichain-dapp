@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  doichain:
+    image: "doichain/node-only:latest" 
+    hostname: doichain
+    ports:
+      - "18543:18332"
+    environment:
+      - RPC_PASSWORD=password
+      - RPC_ALLOW_IP=::/0
+    #  - REGTEST=true
+    #  - CONNECTION_NODE=altbob 
+#    dns_search: ci-doichain.org
+#    volumes:
+#      - ../scripts/docker-compose/resolv.conf:/etc/resolv.conf
+    stdin_open: true
+    tty: true
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.6
+
+  dapp:
+    hostname: dapp
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DOICHAIN_DAPP_VER=v0.0.9.114
+      - DAPP_HOST=localhost    
+      - DAPP_PORT=3000     
+    stdin_open: true
+    tty: true
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.7
+  
+networks:
+  static-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
