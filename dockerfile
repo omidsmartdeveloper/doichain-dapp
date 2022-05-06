@@ -1,19 +1,72 @@
 # FROM node:12
 FROM ubuntu:20.04 AS buck
 
+ARG DOICHAIN_VER=master
 ARG DOICHAIN_DAPP_VER=master
+ENV DOICHAIN_VER $DOICHAIN_VER
 ENV DOICHAIN_DAPP_VER $DOICHAIN_DAPP_VER
 
-ARG DAPP_HOST="localhost"
-ENV DAPP_HOST $DAPP_HOST
+#Setup run vars
+ENV DAPP_SEND true
+ENV DAPP_CONFIRM true
+ENV DAPP_VERIFY true
+ENV DAPP_DEBUG true
+ENV DAPP_HOST "localhost"
+ENV DAPP_PORT 3000
+ENV HTTP_PORT 3000
+ENV DAPP_SSL true
+ENV CONFIRM_ADDRESS ""
+ENV MONGO_URL false
+ENV DAPP_DOI_URL http://localhost:$DAPP_PORT/api/v1/debug/mail
+ENV DAPP_SMTP_USER "doichain"
+ENV DAPP_SMTP_HOST "smtp"
+ENV DAPP_SMTP_PASS ""
+ENV DAPP_SMTP_PORT 587
+ENV CONNECTION_NODE 5.9.154.226
+ENV NODE_PORT 8338
+ENV NODE_PORT_TESTNET 18338
+ENV NODE_PORT_REGTEST 18445
+ENV REGTEST false
+ENV TESTNET false
+ENV RPC_ALLOW_IP 127.0.0.1
+ENV RPC_HOST "localhost"
+ENV RPC_PASSWORD ""
+ENV RPC_PORT 8339
+ENV RPC_PORT_TESTNET 18339
+ENV RPC_PORT_REGTEST 18332
+ENV RPC_USER ""
 
-ARG DAPP_PORT=3000
-ENV DAPP_PORT $DAPP_PORT
+RUN adduser --disabled-password --gecos '' doichain && \
+	adduser doichain sudo && \
+	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \ 
+  apt update -qq && apt install -qq -y --no-install-recommends \
+  bash git curl ca-certificates \ 
+  && (curl https://install.meteor.com/  | sh) \
+  && cd /home/doichain  \ 
+  && git clone --branch ${DOICHAIN_DAPP_VER} https://github.com/Doichain/dapp.git && chown -R doichain dapp && cd dapp
 
-# RUN apt update && apt install -y --no-cache bash git curl
-RUN apt update -qq && apt install -qq -y --no-install-recommends \
-    bash git curl ca-certificates \
-    && (curl https://install.meteor.com/  | sh)  
-  #  && git clone --branch ${DOICHAIN_DAPP_VER} https://github.com/Doichain/dapp.git && cd dapp      
-    # \ && meteor npm install --save bcrypt && meteor build build/ --architecture os.linux.x86_64 --directory --server ${DAPP_HOST}:${DAPP_PORT}
+#Create data dir
+WORKDIR /home/doichain
+USER doichain
+RUN cd /home/doichain \
+&& mkdir -p data \
+&& cd data && \
+	mkdir dapp && cd dapp && \
+	mkdir -p .meteor/local && \
+	mkdir -p local 
 
+WORKDIR /home/doichain/scripts/
+COPY entrypoint.sh entrypoint.sh
+COPY start.sh start.sh
+
+WORKDIR /home/doichain/dapp/
+RUN meteor npm install --save bcrypt && meteor build build/ --architecture os.linux.x86_64 --directory --server ${DAPP_HOST}:${DAPP_PORT}  
+
+WORKDIR /home/doichain
+ENTRYPOINT ["scripts/entrypoint.sh"]
+
+#Start doichain and meteor
+CMD ["/home/doichain/scripts/start.sh"]
+
+#Expose ports
+EXPOSE $DAPP_PORT 

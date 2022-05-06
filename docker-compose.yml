@@ -22,15 +22,17 @@ services:
 
   dapp:
     hostname: dapp
+    image: doichain/dapp
     build: .
     ports:
       - "3000:3000"
     environment:
       - DOICHAIN_DAPP_VER=v0.0.9.114
       - DAPP_HOST=localhost    
-      - DAPP_PORT=3000     
-    stdin_open: true
-    tty: true
+      - DAPP_PORT=3000   
+      
+    #stdin_open: true
+    #tty: true
     networks:
       static-network:
         ipv4_address: 172.20.0.7
@@ -41,3 +43,4 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/16
+        
