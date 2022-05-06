@@ -36,6 +36,17 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.7
+
+  regtest-mongo:
+      image: "mongo:3.2"
+      hostname: mongo
+      expose:
+        - "27017"
+      ports:
+        - "28017:27017"
+      networks:
+        static-network:
+          ipv4_address: 172.20.0.8
   
 networks:
   static-network:
