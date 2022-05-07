@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
   doichain:
-    image: "doichain/node-only:latest" 
+    image: "doichain/node-only:dc0.20.1.11_1" 
     hostname: doichain
     ports:
       - "8339:8339"
     environment:
       - RPC_PASSWORD=password
-      - RPC_ALLOW_IP=::/0
+      - RPC_ALLOW_IP=0.0.0.0/0 #::/0
     #  - REGTEST=true
     #  - CONNECTION_NODE=altbob 
 #    dns_search: ci-doichain.org
@@ -31,6 +31,7 @@ services:
       - MONGO_URL="mongodb://mongo:27017"
       - DAPP_HOST=localhost    
       - DAPP_PORT=3000
+      - RPC_HOST=doichain 
       - RPC_PORT=8339   
       - RPC_USER=admin
       - RPC_PASSWORD=password
@@ -38,7 +39,7 @@ services:
       - DAPP_SMTP_HOST=smtp
       - DAPP_SMTP_PASS=doichain
       - DAPP_SMTP_PORT=587
-      - DAPP_SMTP_DEFAULT_FROM=DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
+      - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
     # stdin_open: true
     # tty: true
     networks:

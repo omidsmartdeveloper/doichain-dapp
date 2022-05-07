@@ -71,7 +71,7 @@ if [ ! -f "$DAPP_SETTINGS_FILE" ]; then
 		      "smtps":false,
 		      "port": "'$DAPP_SMTP_PORT'",
 		      "NODE_TLS_REJECT_UNAUTHORIZED":"0",
-		      "defaultFrom": "doichain@example-domain.org"
+		      "defaultFrom": "'$DAPP_SMTP_DEFAULT_FROM'"
 	    }
 	  }'
 	  if [ $DAPP_VERIFY = true ]; then
