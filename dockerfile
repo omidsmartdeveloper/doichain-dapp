@@ -1,5 +1,5 @@
-# FROM node:12
-FROM ubuntu:20.04 AS buck
+FROM node:14
+#FROM ubuntu:20.04 AS buck
 
 ARG DOICHAIN_VER=master
 ARG DOICHAIN_DAPP_VER=master
@@ -22,6 +22,7 @@ ENV DAPP_SMTP_USER "doichain"
 ENV DAPP_SMTP_HOST "smtp"
 ENV DAPP_SMTP_PASS ""
 ENV DAPP_SMTP_PORT 587
+ENV DAPP_SMTP_DEFAULT_FROM "validator@doichain.org"
 ENV CONNECTION_NODE 5.9.154.226
 ENV NODE_PORT 8338
 ENV NODE_PORT_TESTNET 18338
@@ -40,7 +41,7 @@ RUN adduser --disabled-password --gecos '' doichain && \
 	adduser doichain sudo && \
 	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \ 
   apt update -qq && apt install -qq -y --no-install-recommends \
-  bash git curl ca-certificates \ 
+  bash git curl jq ca-certificates \ 
   && (curl https://install.meteor.com/  | sh) \
   && cd /home/doichain  \ 
   && git clone --branch ${DOICHAIN_DAPP_VER} https://github.com/Doichain/dapp.git && chown -R doichain dapp && cd dapp
@@ -60,8 +61,8 @@ COPY entrypoint.sh entrypoint.sh
 COPY start.sh start.sh
 
 WORKDIR /home/doichain/dapp/
-RUN meteor npm install --save bcrypt && meteor build build/ --architecture os.linux.x86_64 --directory --server ${DAPP_HOST}:${DAPP_PORT}  
-
+RUN  meteor npm install  && meteor npm install --save bcrypt @babel/runtime && meteor build build/ --architecture os.linux.x86_64 --directory --server ${DAPP_HOST}:${DAPP_PORT} && \  
+    cd /home/doichain/dapp/build/bundle/programs/server && npm install && npm install @babel/runtime 
 WORKDIR /home/doichain
 ENTRYPOINT ["scripts/entrypoint.sh"]
 
