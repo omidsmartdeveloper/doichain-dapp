@@ -5,8 +5,9 @@ This repository provides the necessary Docker Commpose file, Dockerfiles and/or 
 - Doichain Core Node
 - Doichain dApp (for Email Marketing)
 - MongoDB (dependency for Doichain dApp)
-- P2Pool (P2P Merge Mining Pool to merge mine Bitcoin and Doichain)
-- ElectrumX Server
+- (planed) P2Pool (P2P Merge Mining Pool to merge mine Bitcoin and Doichain)
+- (planed) ElectrumX Server
+- (planed) Mailu Server
 
 ## Installation process
 1. Clone this repo ```git clone ````

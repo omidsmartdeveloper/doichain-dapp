@@ -1,4 +1,4 @@
-	#!/bin/bash
+#!/bin/bash
 
 export METEOR_SETTINGS=$(cat /home/doichain/data/dapp/settings.json)
 export PORT=$HTTP_PORT
@@ -6,7 +6,7 @@ export ROOT_URL=http://$DAPP_HOST:$DAPP_PORT
 
 BUILD=false
 _BUILD=$1
-_BUILD="${VARIABLE:-BUILD}"
+_BUILD="${_BUILD:-BUILD}"
 if [ $_BUILD = 'build' ]; then
 	git -C /home/doichain/dapp pull origin master
 	echo "starting creating bundle $DAPP_HOST:$DAPP_PORT" 
@@ -30,4 +30,4 @@ echo "starting dapp via node bundle"
 cd /home/doichain/dapp 
 #node build/bundle/main.js > dapp.log  2>&1 & echo $! > dapp.pid
 node build/bundle/main.js 
-sleep 360
+sleep infinity
