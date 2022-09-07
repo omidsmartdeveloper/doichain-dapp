@@ -14,6 +14,9 @@ This repository provides the necessary Docker Commpose file, Dockerfiles and/or 
 2. Run ```docker-compose up -d`` in order to start the Doichain Ecosystem
 3. Run ```docker-compose down``` in order to start the Doichain Ecosystem
 
+## Configuration
+The configuration can be enterirly done inside the docker
+
 
 ## Basics to navigate with Doichain and Docker compose
 - show running containers: ```docker-compose ps```

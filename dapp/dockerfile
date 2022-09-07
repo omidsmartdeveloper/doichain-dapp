@@ -1,5 +1,4 @@
 FROM node:14
-#FROM ubuntu:20.04 AS buck
 
 ARG DOICHAIN_VER=master
 ARG DOICHAIN_DAPP_VER=master
