@@ -32,41 +32,40 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.6
-
-  dapp:
-    hostname: dapp
-    image: doichain/dapp
-    build: ./dapp
-    ports:
-      - "3000:3000"
-    volumes:
-      - data-volume/:/home/doichain/ 
-    environment:
-      - DOICHAIN_DAPP_VER=v0.0.9.114
-      - MONGO_URL="mongodb://mongo:27017"
-      - DAPP_HOST=localhost    
-      - DAPP_PORT=3000
-      - RPC_HOST=doichain 
-      - RPC_PORT=8339   
-      - RPC_USER=admin
-      - RPC_PASSWORD=password
-      - DAPP_SMTP_USER=doichain
-      - DAPP_SMTP_HOST=smtp
-      - DAPP_SMTP_PASS=doichain
-      - DAPP_SMTP_PORT=587
-      - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
-    networks:
-      static-network:
-        ipv4_address: 172.20.0.7
-  p2pool:
-    image: "doichain/p2pool:v34.0"
-    stdin_open: true
-    tty: true
-    volumes:
-      - data-volume:/home/doichain/ 
-    networks:
-      static-network:
-        ipv4_address: 172.20.0.8
+#  dapp:
+#    hostname: dapp
+#   image: doichain/dapp
+#   build: ./dapp
+#   ports:
+#     - "3000:3000"
+#   volumes:
+#     - data-volume:/home/doichain/ 
+#   environment:
+#     - DOICHAIN_DAPP_VER=v0.0.9.114
+#     - MONGO_URL="mongodb://mongo:27017"
+#     - DAPP_HOST=localhost    
+#     - DAPP_PORT=3000
+#     - RPC_HOST=doichain 
+#     - RPC_PORT=8339   
+#     - RPC_USER=admin
+#     - RPC_PASSWORD=password
+#     - DAPP_SMTP_USER=doichain
+#     - DAPP_SMTP_HOST=smtp
+#     - DAPP_SMTP_PASS=doichain
+#     - DAPP_SMTP_PORT=587
+#     - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
+#   networks:
+#     static-network:
+#       ipv4_address: 172.20.0.7
+# p2pool:
+#   image: "doichain/p2pool:v34.0"
+#   stdin_open: true
+#   tty: true
+#   volumes:
+#     - data-volume:/home/doichain/ 
+#   networks:
+#     static-network:
+#       ipv4_address: 172.20.0.8
 
   # regtest-mongo:
   #     image: "mongo:3.2"

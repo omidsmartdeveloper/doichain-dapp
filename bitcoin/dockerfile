@@ -30,8 +30,8 @@ RUN apt-get update && apt-get install -y \
 	jq \
 	vim \
 	jq \
+	unzip \
 	bc \
-	# bsdtar \
 	libarchive-tools \
 	dos2unix \
 	git \

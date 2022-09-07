@@ -35,9 +35,7 @@ if [ ! -f "$BITCOIN_CONF_FILE" ]; then
 	rpcpassword=${RPC_PASSWORD}
 	rpcallowip=${RPC_ALLOW_IP}
 	rpcport=${_RPC_PORT}
-	txindex=1
-	fallbackfee=0.0002
-	rpcworkqueue=2048
+	prune=1000
 	port=${_NODE_PORT}" > $BITCOIN_CONF_FILE
 fi
 
@@ -46,10 +44,10 @@ echo "checking if pruned bitcoin blockchain exists $CHAIN_DATA"
 if [ ! -f "$CHAIN_DATA" ]; then
     cd /home/bitcoin/.bitcoin/
     echo "downloading purned bitcoin blockchain from prunednode.today"
-    #https://nicokrause.com/download/latest.zip
-#    curl -L https://prunednode.today/latest.zip --output latest.zip
-#    unzip latest.zip
-#    rm latest.zip
+    curl -L https://prunednode.today/latest.zip --output latest.zip
+    unzip latest.zip
+    rm latest.zip
+    chown -R bitcoin:bitcoin *
 fi
 
 exec "$@"
