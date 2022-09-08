@@ -34,6 +34,7 @@ if [ ! -f "$BITCOIN_CONF_FILE" ]; then
 	rpcuser=${RPC_USER}
 	rpcpassword=${RPC_PASSWORD}
 	rpcallowip=${RPC_ALLOW_IP}
+	rpcbind=0.0.0.0
 	rpcport=${_RPC_PORT}
 	prune=1000
 	port=${_NODE_PORT}" > $BITCOIN_CONF_FILE
