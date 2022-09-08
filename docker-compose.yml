@@ -68,13 +68,17 @@ services:
     hostname: p2pool
     stdin_open: true
     tty: true
+    ports:
+      - "9333:9333"
     volumes:
       - data-volume:/data
     environment:
-      - MERGED_MINGIN_URL=http://doichain:8339/
-      - P2POOL_DOICHAIN_DEFAULT_ADDR=bla
-      - P2POOL_BITCOIN_DEFAULT_ADDR=bla
-    
+      - P2POOL_DOICHAIN_DEFAULT_ADDR=N6AJnuo2ekhtUPnAAAyaQsPC9hjftmszoA
+      - P2POOL_BITCOIN_DEFAULT_ADDR=bc1qpc7j3knsfnf8mmevvk7588m6waa68quct4uyp8
+      - DOICHAIN_RPC_USER=admin
+      - DOICHAIN_RPC_PASSWORD=password
+      - DOICHAIN_RPC_HOST=doichain
+      - DOICHAIN_RPC_PORT=8339
     networks:
       static-network:
         ipv4_address: 172.20.0.8
@@ -101,4 +105,3 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/16
-        

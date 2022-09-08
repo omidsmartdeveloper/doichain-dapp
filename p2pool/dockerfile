@@ -23,7 +23,4 @@ RUN adduser --disabled-password --gecos '' p2pool && \
     wget https://pypi.python.org/packages/source/T/Twisted/Twisted-15.4.0.tar.bz2 && tar jxf Twisted-15.4.0.tar.bz2 && cd Twisted-15.4.0 && pypy setup.py install && cd .. && rm -r Twisted-15.4.0* 
 
 USER p2pool 
-#RUN ls -l /data && ls -l /home/bitcoin
-#CMD ["ls -l "]
-#CMD [ "/usr/bin/pypy /usr/src/p2pool/run_p2pool.py --net bitcoin"]
-#CMD [ "/usr/bin/pypy /home/p2pool/p2pool/run_p2pool.py --net bitcoin --merged_addr ${MERGED_MINGIN_URL}/?payout=${P2POOL_DOICHAIN_DEFAULT_ADDR} -a $P2POOL_BITCOIN_DEFAULT_ADDR -n p2pool.org --give-author=0"]
+#CMD [ "/usr/bin/pypy /usr/src/p2pool/run_p2pool.py --net bitcoin --bitcoind-address bitcoin --merged_addr ${MERGED_MINGIN_URL}/?payout=${P2POOL_DOICHAIN_DEFAULT_ADDR} -a $P2POOL_BITCOIN_DEFAULT_ADDR -n p2pool.org --give-author=0"]
