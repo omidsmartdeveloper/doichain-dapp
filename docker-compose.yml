@@ -7,7 +7,7 @@ services:
     ports:
       - "8332:8333"
     volumes:
-     - data-volume:/home/bitcoin/
+     - data-volume:/home/bitcoin/data
     environment:
       - RPC_PASSWORD=password
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0
@@ -23,7 +23,7 @@ services:
     ports:
       - "8339:8339"
     volumes:
-     - data-volume:/home/doichain/
+     - data-volume:/home/doichain/data
     environment:
       - RPC_PASSWORD=password
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0

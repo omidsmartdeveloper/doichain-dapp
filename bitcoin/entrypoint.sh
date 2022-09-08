@@ -39,13 +39,13 @@ if [ ! -f "$BITCOIN_CONF_FILE" ]; then
 	port=${_NODE_PORT}" > $BITCOIN_CONF_FILE
 fi
 
-CHAIN_DATA=/home/bitcoin/.bitcoin/database
+CHAIN_DATA=/home/bitcoin/.bitcoin/chainstate/CURRENT
 echo "checking if pruned bitcoin blockchain exists $CHAIN_DATA"
 if [ ! -f "$CHAIN_DATA" ]; then
     cd /home/bitcoin/.bitcoin/
     echo "downloading purned bitcoin blockchain from prunednode.today"
     curl -L https://prunednode.today/latest.zip --output latest.zip
-    unzip latest.zip
+    unzip latest.zip -x bitcoin.conf 
     rm latest.zip
     chown -R bitcoin:bitcoin *
 fi
