@@ -69,12 +69,12 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "9333:9333"
+      - "9332:9332"
     volumes:
       - data-volume:/data
     environment:
-      - P2POOL_DOICHAIN_DEFAULT_ADDR=N6AJnuo2ekhtUPnAAAyaQsPC9hjftmszoA
-      - P2POOL_BITCOIN_DEFAULT_ADDR=bc1qpc7j3knsfnf8mmevvk7588m6waa68quct4uyp8
+      - P2POOL_DOICHAIN_DEFAULT_ADDR=NFgT2Gv6C9B9WaWQ51bz9FmPinYmy8wqTE
+      - P2POOL_BITCOIN_DEFAULT_ADDR=bc1q4dz3j27u3qwclq05mwqlmec8eeqfqcma0n2xg0
       - DOICHAIN_RPC_USER=admin
       - DOICHAIN_RPC_PASSWORD=password
       - DOICHAIN_RPC_HOST=doichain

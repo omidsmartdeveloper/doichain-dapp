@@ -1,14 +1,14 @@
 FROM ubuntu:20.04 AS buck
  
 ENV DOICHAIN_RPC_USER "admin"
-ENV DOICHAIN_RPC_PASSWORD "passsword"
+ENV DOICHAIN_RPC_PASSWORD "password"
 ENV DOICHAIN_RPC_HOST "doichain"
 ENV DOICHAIN_RPC_PORT "8339"
 
 ENV MERGED_MINGIN_URL "http://$DOICHAIN_RPC_USER:$DOICHAIN_RPC_PASSWORD@${DOICHAIN_RPC_HOST}:${DOICHAIN_RPC_PORT}"
 ENV P2POOL_DOICHAIN_DEFAULT_ADDR = ""
 ENV P2POOL_BITCOIN_DEFAULT_ADDR = ""
-
+COPY start.sh start.sh
 RUN adduser --disabled-password --gecos '' p2pool && \
 	adduser p2pool sudo && \
 	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \ 
@@ -16,11 +16,11 @@ RUN adduser --disabled-password --gecos '' p2pool && \
     bash jq vim git wget curl jq ca-certificates python3-pip \
     pypy pypy-dev pypy-setuptools gcc build-essential python-zope.interface && \ 
     pip3 install twisted sudo && cd /usr/src/ && mkdir -p /data/bitcoin && ln -s /data/bitcoin /home/p2pool/.bitcoin && \ 
-    git clone https://github.com/Doichain/p2pool.git && chown -R p2pool p2pool && cd p2pool && \
+    git clone https://github.com/Doichain/p2pool.git && chown -R p2pool * && cd p2pool && \
     wget https://bootstrap.pypa.io/ez_setup.py -O - | pypy && rm setuptools-*.zip && \
     wget https://pypi.python.org/packages/source/z/zope.interface/zope.interface-4.1.3.tar.gz#md5=9ae3d24c0c7415deb249dd1a132f0f79 && tar zxf zope.interface-4.1.3.tar.gz && cd zope.interface-4.1.3/ && \
     pypy setup.py install && cd .. && rm -r zope.interface-4.1.3* && cd .. && \
     wget https://pypi.python.org/packages/source/T/Twisted/Twisted-15.4.0.tar.bz2 && tar jxf Twisted-15.4.0.tar.bz2 && cd Twisted-15.4.0 && pypy setup.py install && cd .. && rm -r Twisted-15.4.0* 
 
 USER p2pool 
-#CMD [ "/usr/bin/pypy /usr/src/p2pool/run_p2pool.py --net bitcoin --bitcoind-address bitcoin --merged_addr ${MERGED_MINGIN_URL}/?payout=${P2POOL_DOICHAIN_DEFAULT_ADDR} -a $P2POOL_BITCOIN_DEFAULT_ADDR -n p2pool.org --give-author=0"]
+CMD ["/bin/bash", "/start.sh"]
