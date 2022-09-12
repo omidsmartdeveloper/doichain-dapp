@@ -39,10 +39,14 @@ The configuration can be enterirly done inside the docker
     - doichain-cli getrawtransaction
     - doichain-cli getrawmempool
 
-## Basics to navigate with Doichain P2Pool
-1. Check p2pool log ``` docker compose exec p2pool tail -f /home/p2pool/nohup.out```
+## Basics to navigate with Doichain P2Pool and Doichain Bitcoind
+1. When starting Bitcoind first time, it downloads a pruned Bitcoin blockchain and starts syncing the last "couple of days / weeks" of blocks - please be patients and have a look on the following logs.
+2. Check p2pool log ``` docker compose exec p2pool tail -f /home/p2pool/nohup.out```
     - is p2pool connected to bitcoin? Or still showing "Bitcoin Core is in initial sync and waiting for blocks..."
-2. docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log 
+3. Check bitcoind log ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log``` 
 
 ## Basics to navigate with Doichain dApp 
 1. Connect to Doichain Container via ```docker-compose exec dapp bash```
+
+
+
