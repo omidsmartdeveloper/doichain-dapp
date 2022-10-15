@@ -1,21 +1,22 @@
 # Doichain Docker Compose Environment
 
 ## Description
-This repository provides the necessary Docker Compose file, Dockerfiles and/or images to start a complete Doichain Ecosystem such as:
+This repository provides the necessary Docker Compose file, Dockerfiles and/or images to start a complete Doichain Node environment including:
 - Doichain Core Node
+- P2Pool (P2P Merge Mining Pool to merge mine Bitcoin and Doichain)
+- Bitcoin Core Node (pruned) dependency to merge mine Doichain via P2Pool
+- (planned) ElectrumX Server
 - Doichain dApp (for Email Marketing)
 - MongoDB (dependency for Doichain dApp)
-- (planned) P2Pool (P2P Merge Mining Pool to merge mine Bitcoin and Doichain)
-- (planned) ElectrumX Server
-- (planned) Mail Server
+- (planned) Mail Server (dependency for Doichain dApp)
 
 ## Installation process
-1. Clone this repo ```git clone ````
-2. Run ```docker-compose up -d`` in order to start the Doichain Ecosystem
+1. Clone this repo 
+2. Run ```docker-compose up -d``` in order to start the Doichain Ecosystem
 3. Run ```docker-compose down``` in order to start the Doichain Ecosystem
 
 ## Configuration
-The configuration can be enterirly done inside the docker
+The configuration can be enterirly done inside the docker compose file
 
 
 ## Basics to navigate with Doichain and Docker compose
