@@ -47,7 +47,8 @@ The configuration can be enterirly done inside the docker compose file
 3. Check bitcoind log ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log``` 
 
 ## Basics to navigate with Doichain dApp 
-1. Connect to Doichain Container via ```docker-compose exec dapp bash```
+1. Connect to Doichain-dApp Container via ```docker-compose exec dapp bash```
+2. Connect to Doichain-dApp via browser http://localhost:3000 
 
 
 
