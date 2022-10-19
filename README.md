@@ -1,21 +1,27 @@
 # Doichain Docker Compose Environment
 
 ## Description
-This repository provides the necessary Docker Compose file, Dockerfiles and/or images to start a complete Doichain Ecosystem such as:
+This repository provides the necessary Docker Compose file, Dockerfiles and/or images to start a complete Doichain Node environment including:
 - Doichain Core Node
+- P2Pool (P2P Merge Mining Pool to merge mine Bitcoin and Doichain)
+- Bitcoin Core Node (pruned) dependency to merge mine Doichain via P2Pool
+- (planned) ElectrumX Server
 - Doichain dApp (for Email Marketing)
 - MongoDB (dependency for Doichain dApp)
-- (planned) P2Pool (P2P Merge Mining Pool to merge mine Bitcoin and Doichain)
-- (planned) ElectrumX Server
-- (planned) Mail Server
+- (planned) Mail Server (dependency for Doichain dApp)
 
 ## Installation process
-1. Clone this repo ```git clone ````
-2. Run ```docker-compose up -d`` in order to start the Doichain Ecosystem
-3. Run ```docker-compose down``` in order to start the Doichain Ecosystem
+1. Clone this repo 
+2. Run ```docker-compose up -d``` in order to start the Doichain Node environment
+3. Run ```docker-compose down``` in order to start the Doichain Node environment
+
+*** Remark if you see a permission denied error do the following ***
+1. Run ```volume  inspect doichain-install_data-volume```
+2. cd to the mountpoint (e.g. cd /var/lib/docker/volumes/doichain-install_data-volume/_data)
+3. Run ```mkdir bitcoin doichain``` (if not exists one of those)
 
 ## Configuration
-The configuration can be enterirly done inside the docker
+The configuration can be enterirly done inside the docker compose file
 
 
 ## Basics to navigate with Doichain and Docker compose
@@ -39,5 +45,15 @@ The configuration can be enterirly done inside the docker
     - doichain-cli getrawtransaction
     - doichain-cli getrawmempool
 
+## Basics to navigate with Doichain P2Pool and Doichain Bitcoind
+1. When starting Bitcoind first time, it downloads a pruned Bitcoin blockchain and starts syncing the last "couple of days / weeks" of blocks - please be patients and have a look on the following logs.
+2. Check p2pool log ``` docker compose exec p2pool tail -f /home/p2pool/nohup.out```
+    - is p2pool connected to bitcoin? Or still showing "Bitcoin Core is in initial sync and waiting for blocks..."
+3. Check bitcoind log ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log``` 
+
 ## Basics to navigate with Doichain dApp 
-1. Connect to Doichain Container via ```docker-compose exec dapp bash```
+1. Connect to Doichain-dApp Container via ```docker-compose exec dapp bash```
+2. Connect to Doichain-dApp via browser http://localhost:3000 
+
+
+

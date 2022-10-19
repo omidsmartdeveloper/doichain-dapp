@@ -24,8 +24,8 @@ if [ -z ${RPC_PASSWORD} ]; then
 	RPC_PASSWORD=$(xxd -l 30 -p /dev/urandom)
 	echo "RPC_PASSWORD was not set, generated: "$RPC_PASSWORD
 fi
-
-BITCOIN_CONF_FILE=/home/bitcoin/.bitcoin/bitcoin.conf
+echo "loooks good!"
+BITCOIN_CONF_FILE=/home/bitcoin/data/bitcoin/bitcoin.conf
 if [ ! -f "$BITCOIN_CONF_FILE" ]; then
     echo "BITCOIN_CONF_FILE not found - generating new!"
 	echo "
@@ -40,10 +40,10 @@ if [ ! -f "$BITCOIN_CONF_FILE" ]; then
 	port=${_NODE_PORT}" > $BITCOIN_CONF_FILE
 fi
 
-CHAIN_DATA=/home/bitcoin/.bitcoin/chainstate/CURRENT
+CHAIN_DATA=/home/bitcoin/data/bitcoin/chainstate/CURRENT
 echo "checking if pruned bitcoin blockchain exists $CHAIN_DATA"
 if [ ! -f "$CHAIN_DATA" ]; then
-    cd /home/bitcoin/.bitcoin/
+    cd /home/bitcoin/data/bitcoin
     echo "downloading purned bitcoin blockchain from prunednode.today"
     curl -L https://prunednode.today/latest.zip --output latest.zip
     unzip latest.zip -x bitcoin.conf 

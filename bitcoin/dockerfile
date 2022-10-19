@@ -94,7 +94,8 @@ RUN sudo dos2unix \
 WORKDIR /home/bitcoin
 RUN mkdir data && \
 	cd data && \
-	mkdir bitcoin &&\
+	mkdir bitcoin && \
+	chown -R bitcoin /home/bitcoin/data && \
 	sudo rm -rf /home/bitcoin/.bitcoin && \
 	sudo ln -s /home/bitcoin/data/bitcoin /home/bitcoin/.bitcoin
 
@@ -107,4 +108,3 @@ CMD ["scripts/start.sh"]
 
 #Expose ports
 EXPOSE $NODE_PORT $RPC_PORT $RPC_PORT_REGTEST
-
