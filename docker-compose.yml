@@ -5,12 +5,11 @@ services:
     image: "doichain/bitcoind:v0.20.0"
     container_name: bitcoin
     hostname: bitcoin
-    #build: ./dapp
     ports:
       - "8332:8332"
       - "8333:8333"
     volumes:
-     - data-volume:/home/bitcoin/data
+     - bitcoin-volume:/home/bitcoin/data
     environment:
       - RPC_PASSWORD=password
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0
@@ -27,7 +26,7 @@ services:
     ports:
       - "8339:8339"
     volumes:
-     - data-volume:/home/doichain/data
+      - doichain-volume:/home/doichain/data
     environment:
       - RPC_PASSWORD=password
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0
@@ -36,31 +35,32 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.6
-#  dapp:
-#    hostname: dapp
-#   image: doichain/dapp
-#   build: ./dapp
-#   ports:
-#     - "3000:3000"
-#   volumes:
-#     - data-volume:/home/doichain/ 
-#   environment:
-#     - DOICHAIN_DAPP_VER=v0.0.9.114
-#     - MONGO_URL="mongodb://mongo:27017"
-#     - DAPP_HOST=localhost    
-#     - DAPP_PORT=3000
-#     - RPC_HOST=doichain 
-#     - RPC_PORT=8339   
-#     - RPC_USER=admin
-#     - RPC_PASSWORD=password
-#     - DAPP_SMTP_USER=doichain
-#     - DAPP_SMTP_HOST=smtp
-#     - DAPP_SMTP_PASS=doichain
-#     - DAPP_SMTP_PORT=587
-#     - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
-#   networ:wqks:
-#     static-network:
-#       ipv4_address: 172.20.0.7
+
+    #  dapp:
+    #hostname: dapp
+    #image: doichain/dapp
+    #build: ./dapp
+    #ports:
+    # - "3000:3000"
+    #volumes:
+    # - data-volume:/home/doichain/ 
+    #environment:
+    # - DOICHAIN_DAPP_VER=v0.0.9.114
+    # - MONGO_URL="mongodb://mongo:27017"
+    # - DAPP_HOST=localhost    
+    # - DAPP_PORT=3000
+    # - RPC_HOST=doichain 
+    # - RPC_PORT=8339   
+    # - RPC_USER=admin
+    # - RPC_PASSWORD=password
+    # - DAPP_SMTP_USER=doichain
+    # - DAPP_SMTP_HOST=smtp
+    # - DAPP_SMTP_PASS=doichain
+    # - DAPP_SMTP_PORT=587
+    # - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
+    #networ:wqks:
+    # static-network:
+    #   ipv4_address: 172.20.0.7
 
   p2pool:
     image: "doichain/p2pool:v34.0"
@@ -71,7 +71,8 @@ services:
     ports:
       - "9332:9332"
     volumes:
-      - data-volume:/data
+      - bitcoin-volume:/data/bitcoin
+      - doichain-volume:/data/doichain
     environment:
       - P2POOL_DOICHAIN_DEFAULT_ADDR=NFgT2Gv6C9B9WaWQ51bz9FmPinYmy8wqTE
       - P2POOL_BITCOIN_DEFAULT_ADDR=bc1q4dz3j27u3qwclq05mwqlmec8eeqfqcma0n2xg0
@@ -97,7 +98,8 @@ services:
   #         ipv4_address: 172.20.0.8
 
 volumes:
-  data-volume:
+  bitcoin-volume:
+  doichain-volume:
 
 networks:
   static-network:

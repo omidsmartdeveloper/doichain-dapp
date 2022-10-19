@@ -49,6 +49,7 @@ if [ ! -f "$CHAIN_DATA" ]; then
     unzip latest.zip -x bitcoin.conf 
     rm latest.zip
     chown -R bitcoin:bitcoin *
+    cd /home/bitcoin
 fi
 
 exec "$@"
