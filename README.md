@@ -15,10 +15,10 @@ This repository provides the necessary Docker Compose file, Dockerfiles and/or i
 2. Run ```docker-compose up -d``` in order to start the Doichain Node environment
 3. Run ```docker-compose down``` in order to start the Doichain Node environment
 
-*** Remark if you see a permission denied error do the following ***
-1. Run ```volume  inspect doichain-install_data-volume```
-2. cd to the mountpoint (e.g. cd /var/lib/docker/volumes/doichain-install_data-volume/_data)
-3. Run ```mkdir bitcoin doichain``` (if not exists one of those)
+***Remark***
+When starting docker compose up the bitcoin service downloads a pruned bitcoin blockchain. This takes a while. It will be extracted into the bitcoin docker container. Mostly the p2pool services stops then! 
+1. You can connect to the bitcoin container with ```docker compose exec bitcoin bash``` and ```cd .bitcoin``` and check if the blockchain was already downloaded completely.
+2. If the blockchain was downloaded it will sync the missing blocks. You can watch the process via ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log``` 
 
 ## Configuration
 The configuration can be enterirly done inside the docker compose file
