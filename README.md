@@ -19,13 +19,15 @@ This repository provides the necessary Docker Compose file, Dockerfiles and/or i
 3. Run ```docker-compose down``` in order to start the Doichain Node environment
 
 ***Remark***
-When starting docker compose up the bitcoin service downloads a pruned bitcoin blockchain. This takes a while. It will be extracted into the bitcoin docker container. Mostly the p2pool services stops then! 
-1. You can connect to the bitcoin container with ```docker compose exec bitcoin bash``` and ```cd .bitcoin``` and check if the blockchain was already downloaded completely.
-2. If the blockchain was downloaded it will sync the missing blocks. You can watch the process via ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log``` 
+When starting ```docker compose up``` the bitcoin service downloads a pruned bitcoin blockchain. This takes a while. It will be extracted into the bitcoin docker container. The p2pool service is then showing errors in the logs that it can't connect to bitcoin rpc! (see: ```docker compose exec p2pool tail -f /home/p2pool/nohup.out```) 
+1. You can connect to the bitcoin container with ```docker compose exec bitcoin bash``` and ```cd .bitcoin``` and check if the blockchain was already downloaded completely and all blocks synchronized.
+2. If the blockchain was downloaded it will sync the missing blocks. You can watch the process via ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log```
+3. As soon as p2pool, bitcoind and doichaind service is running, p2pool mining pool can be access via the ip of the node and port 9332!
+4. Bitcoind rpc running on standard port 8332 (Bitcoin p2p on default 8333)
+5. Doichain rpc running on standard port 8338 (Docihain p2p on default 8339)
 
 ## Configuration
 The configuration can be enterirly done inside the docker compose file
-
 
 ## Basics to navigate with Doichain and Docker compose
 - show running containers: ```docker-compose ps```
@@ -50,7 +52,7 @@ The configuration can be enterirly done inside the docker compose file
 
 ## Basics to navigate with Doichain P2Pool and Doichain Bitcoind
 1. When starting Bitcoind first time, it downloads a pruned Bitcoin blockchain and starts syncing the last "couple of days / weeks" of blocks - please be patients and have a look on the following logs.
-2. Check p2pool log ``` docker compose exec p2pool tail -f /home/p2pool/nohup.out```
+2. Check p2pool log ```docker compose exec p2pool tail -f /home/p2pool/nohup.out```
     - is p2pool connected to bitcoin? Or still showing "Bitcoin Core is in initial sync and waiting for blocks..."
 3. Check bitcoind log ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log``` 
 
