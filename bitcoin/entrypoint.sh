@@ -46,7 +46,7 @@ if [ ! -f "$CHAIN_DATA" ]; then
     cd /home/bitcoin/data/bitcoin
     echo "downloading purned bitcoin blockchain from prunednode.today"
 	curl -L https://www.doi.works/pruned/bitcoin-pruned.tgz  --output bitcoin-pruned.tgz
-    tar --exclude='bitcoin.conf' -xzvf  bitcoin-pruned.tgz
+	tar --exclude='bitcoin.conf' --exclude='bitcoind.pid' --exclude='debug.log' -xzvf  bitcoin-pruned.tgz
 	rm bitcoin-pruned.tgz
 	#curl -L https://prunednode.today/latest.zip --output latest.zip
     #unzip latest.zip -x bitcoin.conf 
