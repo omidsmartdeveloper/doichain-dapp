@@ -15,7 +15,10 @@ This repository provides the necessary Docker Compose file, Dockerfiles and/or i
 
 ## Usage
 1. Clone this repo 
-2. (***Important***) Edit docker-comopose.yml and change P2POOL_DOICHAIN_DEFAULT_ADDR and P2POOL_BITCOIN_DEFAULT_ADDR environment variables in order to tell P2pool where to mint the mined coins. 
+2. (***Important***) Edit docker-comopose.yml and change the environment variables 
+    - P2POOL_DOICHAIN_DEFAULT_ADDR and 
+    - P2POOL_BITCOIN_DEFAULT_ADDR  
+    in order to tell P2pool where to mint the mined coins. 
 3. Run ```docker-compose up -d``` in order to start the Doichain Node environment
 4. Run ```docker-compose down``` in order to start the Doichain Node environment
 
