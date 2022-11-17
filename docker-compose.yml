@@ -19,48 +19,93 @@ services:
       static-network:
         ipv4_address: 172.20.0.5
 
-  doichain:
+  # doichain:
+  #   image: "doichain/node-only:dc0.20.1.11_1" 
+  #   container_name: doichain
+  #   hostname: doichain
+  #   ports:
+  #     - "8339:8339"
+  #   volumes:
+  #     - doichain-volume:/home/doichain/data
+  #   environment:
+  #     - RPC_PASSWORD=password
+  #     - RPC_ALLOW_IP=0.0.0.0/0 #::/0
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     static-network:
+  #       ipv4_address: 172.20.0.6
+    
+  doichain-testnet:
     image: "doichain/node-only:dc0.20.1.11_1" 
-    container_name: doichain
-    hostname: doichain
+    container_name: doichain-testnet
+    hostname: doichain-testnet
     ports:
-      - "8339:8339"
+      - "18339:18339"
     volumes:
       - doichain-volume:/home/doichain/data
     environment:
+      - TESTNET=true
+      - CONNECTION_NODE=157.90.175.84
       - RPC_PASSWORD=password
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0
     stdin_open: true
     tty: true
     networks:
       static-network:
-        ipv4_address: 172.20.0.6
+        ipv4_address: 172.20.0.16
 
-    #  dapp:
-    #hostname: dapp
-    #image: doichain/dapp
-    #build: ./dapp
-    #ports:
-    # - "3000:3000"
-    #volumes:
-    # - data-volume:/home/doichain/ 
-    #environment:
-    # - DOICHAIN_DAPP_VER=v0.0.9.114
-    # - MONGO_URL="mongodb://mongo:27017"
-    # - DAPP_HOST=localhost    
-    # - DAPP_PORT=3000
-    # - RPC_HOST=doichain 
-    # - RPC_PORT=8339   
-    # - RPC_USER=admin
-    # - RPC_PASSWORD=password
-    # - DAPP_SMTP_USER=doichain
-    # - DAPP_SMTP_HOST=smtp
-    # - DAPP_SMTP_PASS=doichain
-    # - DAPP_SMTP_PORT=587
-    # - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
-    #networ:wqks:
-    # static-network:
-    #   ipv4_address: 172.20.0.7
+#   dapp: 
+#     image: doichain/dapp
+#     container_name: dapp
+#     hostname: dapp
+#  #   build: ./dapp
+#     ports:
+#     - "3000:3000"
+#     volumes:
+#     - dapp-volume:/home/doichain/data
+#     environment:
+#     - DOICHAIN_DAPP_VER=v0.0.9.114
+#     - MONGO_URL="mongodb://mongo:27017"
+#     - DAPP_HOST=localhost    
+#     - DAPP_PORT=3000
+#     - RPC_HOST=doichain 
+#     - RPC_PORT=8339   
+#     - RPC_USER=admin
+#     - RPC_PASSWORD=password
+#     - DAPP_SMTP_USER=doichain
+#     - DAPP_SMTP_HOST=smtp
+#     - DAPP_SMTP_PASS=doichain
+#     - DAPP_SMTP_PORT=587
+#     - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
+
+  dapp:
+    image: doichain/dapp
+    container_name: dapp
+    hostname: dapp
+ #   build: ./dapp
+    ports:
+    - "3000:3000"
+    volumes:
+    - dapp-volume:/home/doichain/data
+    environment:
+    - DOICHAIN_DAPP_VER=v0.0.9.114
+    - MONGO_URL="mongodb://mongo:27017"
+    - DAPP_HOST=localhost    
+    - DAPP_PORT=3000
+    - RPC_HOST=doichain 
+    - RPC_PORT=18339   
+    - RPC_USER=admin
+    - RPC_PASSWORD=password
+    - DAPP_SMTP_USER=doichain
+    - DAPP_SMTP_HOST=smtp
+    - DAPP_SMTP_PASS=doichain
+    - DAPP_SMTP_PORT=587
+    - DAPP_SMTP_DEFAULT_FROM=validator@doichain.org
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.7
+        
 
   p2pool:
     image: "doichain/p2pool:v34.0"
@@ -68,7 +113,7 @@ services:
     hostname: p2pool
     stdin_open: true
     tty: true
-    ports:
+    ports: 
       - "9332:9332"
     volumes:
       - bitcoin-volume:/data/bitcoin
@@ -84,22 +129,24 @@ services:
       static-network:
         ipv4_address: 172.20.0.8
 
-  # regtest-mongo:
-  #     image: "mongo:3.2"
-  #     hostname: mongo
-  #     expose:
-  #       - "27017"
-  #     ports:
-  #       - "28017:27017"
-  #     volumes: 
-  #       - data-volume:/home/doichain/ 
-  #     networks:
-  #       static-network:
-  #         ipv4_address: 172.20.0.8
+  regtest-mongo:
+    image: "mongo:3.2"
+    hostname: mongo
+    expose:
+      - "27017"
+    ports:
+      - "28017:27017"
+    volumes: 
+      -  mongo-volume:/data
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.9
 
 volumes:
   bitcoin-volume:
   doichain-volume:
+  dapp-volume:
+  mongo-volume:
 
 networks:
   static-network:
