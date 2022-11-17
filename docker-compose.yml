@@ -93,7 +93,7 @@ services:
     - MONGO_URL="mongodb://mongo:27017"
     - DAPP_HOST=localhost    
     - DAPP_PORT=3000
-    - RPC_HOST=doichain 
+    - RPC_HOST=doichain-testnet
     - RPC_PORT=18339   
     - RPC_USER=admin
     - RPC_PASSWORD=password
