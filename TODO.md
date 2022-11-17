@@ -1,1 +1,2 @@
-- if 
+- is doichain-testnet starting from scratch? if not why
+- what about volume handling? is everything logical in doichain-dapp? Can we improve something e.g. map volume to /data ? 
