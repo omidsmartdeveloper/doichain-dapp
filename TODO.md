@@ -1,2 +1,7 @@
 - is doichain-testnet starting from scratch? if not why
-- what about volume handling? is everything logical in doichain-dapp? Can we improve something e.g. map volume to /data ? 
+- what about volume handling? is everything logical in doichain-dapp? Can we improve something e.g. map volume to /data ?
+- doichain testnet node doesn't start
+    - doichain.conf doesn't include tesntet=true
+    - if environment variable is TESTNET=true 
+    - this is correct entrypoint.sh https://github.com/Doichain/dapp/blob/master/contrib/docker/node-only/entrypoint.sh
+    - change entrypoint script, release new version on docker hub

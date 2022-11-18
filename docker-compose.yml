@@ -20,7 +20,7 @@ services:
         ipv4_address: 172.20.0.5
 
   # doichain:
-  #   image: "doichain/node-only:dc0.20.1.11_1" 
+  #  image: "doichain/core:dc0.20.1.12" 
   #   container_name: doichain
   #   hostname: doichain
   #   ports:
@@ -37,7 +37,7 @@ services:
   #       ipv4_address: 172.20.0.6
     
   doichain-testnet:
-    image: "doichain/node-only:dc0.20.1.11_1" 
+    image: "doichain/core:dc0.20.1.12" 
     container_name: doichain-testnet
     hostname: doichain-testnet
     ports:
