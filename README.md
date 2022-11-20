@@ -1,4 +1,4 @@
-# Doichain Docker Compose Environment
+# Doichain Environment via Docker Compose 
 
 This repository provides the necessary Docker Compose file, Dockerfiles and/or images to start a complete Doichain Node environment including:
 - Doichain Core Node
