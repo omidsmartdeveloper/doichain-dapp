@@ -5,6 +5,8 @@ services:
     image: nginx:1.22.0
     environment:
       - SERVER_NAME=${SERVER_NAME}
+    depends_on:
+      - dapp
     ports:
       - "443:443"
     volumes:
@@ -42,6 +44,9 @@ services:
 
   dapp: 
     image: doichain/dapp
+    depends_on:
+      - doichain
+      - mongo
     container_name: dapp
     hostname: dapp
  #   build: ./dapp
@@ -64,7 +69,7 @@ services:
       - DAPP_SMTP_PORT=${DAPP_SMTP_PORT}
       - DAPP_SMTP_DEFAULT_FROM=${DAPP_SMTP_DEFAULT_FROM}
 
-regtest-mongo:
+mongo:
   image: "mongo:3.2"
   container_name: mongo
   hostname: mongo

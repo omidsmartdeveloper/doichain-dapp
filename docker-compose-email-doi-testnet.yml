@@ -3,10 +3,12 @@ version: '3.7'
 services:
   nginx:
     image: nginx:1.22.0
+    depends_on:
+      - dapp
     environment:
       - SERVER_NAME=${SERVER_NAME}
     ports:
-      - "4443:4443"
+      - "443:443"
     volumes:
       - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template
       - ./nginx/docker-entrypoint.d/:/docker-entrypoint.d/
@@ -45,6 +47,9 @@ services:
 
   dapp:
     image: doichain/dapp:v0.0.9.115
+    depends_on:
+      - mongo
+      - doichain-testnet
     container_name: dapp
     hostname: dapp
     # build: ./dapp
@@ -70,7 +75,7 @@ services:
       static-network:
         ipv4_address: 172.20.0.7
   
-  regtest-mongo:
+  mongo:
     image: "mongo:3.2"
     container_name: mongo
     hostname: mongo
