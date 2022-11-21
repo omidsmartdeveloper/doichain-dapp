@@ -57,7 +57,7 @@ services:
       - RPC_HOST=doichain 
       - RPC_PORT=8339   
       - RPC_USER=${RPC_USER}
-      - RPC_PASSWORD=${RPC_PASSWORD}"
+      - RPC_PASSWORD=${RPC_PASSWORD}
       - DAPP_SMTP_USER=${DAPP_SMTP_USER}
       - DAPP_SMTP_HOST=${DAPP_SMTP_HOST}
       - DAPP_SMTP_PASS=${DAPP_SMTP_PASS}

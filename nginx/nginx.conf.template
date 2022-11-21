@@ -10,7 +10,7 @@ server {
     }
 }
 server {
-    listen 4443 ssl;
+    listen 443 ssl;
     server_name ${SERVER_NAME};
 
     ssl_certificate /etc/letsencrypt/live/${SERVER_NAME}/fullchain.pem;
@@ -19,7 +19,7 @@ server {
     ssl_dhparam /etc/letsencrypt/conf/ssl-dhparams.pem;
     
     location / {
-    	proxy_pass http://dapp:3080;
+    	proxy_pass http://dapp:3000;
     	proxy_set_header Host $host;
     	proxy_cache_bypass $http_upgrade;
     }
