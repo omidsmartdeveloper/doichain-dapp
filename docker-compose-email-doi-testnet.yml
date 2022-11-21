@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:1.22.0
     environment:
-      - SERVER_NAME="${SERVER_NAME}"
+      - SERVER_NAME=${SERVER_NAME}
     ports:
       - "4443:4443"
     volumes:
@@ -34,8 +34,8 @@ services:
     environment:
       - TESTNET=true
       - CONNECTION_NODE=157.90.175.84
-      - RPC_USER="${RPC_USER}"
-      - RPC_PASSWORD="${RPC_PASSWORD}"
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0
     stdin_open: true
     tty: true
@@ -55,17 +55,17 @@ services:
     environment:
       - DOICHAIN_DAPP_VER=v0.0.9.115
       - MONGO_URL="mongodb://mongo:27017"
-      - DAPP_HOST="${SERVER_NAME}"  
+      - DAPP_HOST=${SERVER_NAME}
       - DAPP_PORT=4000
       - RPC_HOST=doichain-testnet
       - RPC_PORT=18339   
-      - RPC_USER="${RPC_USER}"
-      - RPC_PASSWORD="${RPC_PASSWORD}"
-      - DAPP_SMTP_USER="${DAPP_SMTP_USER}"
-      - DAPP_SMTP_HOST="${DAPP_SMTP_HOST}"
-      - DAPP_SMTP_PASS="${DAPP_SMTP_PASS}"
-      - DAPP_SMTP_PORT="${DAPP_SMTP_PORT}"
-      - DAPP_SMTP_DEFAULT_FROM="${DAPP_SMTP_DEFAULT_FROM}"
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
+      - DAPP_SMTP_USER=${DAPP_SMTP_USER}
+      - DAPP_SMTP_HOST=${DAPP_SMTP_HOST}
+      - DAPP_SMTP_PASS=${DAPP_SMTP_PASS}
+      - DAPP_SMTP_PORT=${DAPP_SMTP_PORT}
+      - DAPP_SMTP_DEFAULT_FROM=${DAPP_SMTP_DEFAULT_FROM}
     networks:
       static-network:
         ipv4_address: 172.20.0.7

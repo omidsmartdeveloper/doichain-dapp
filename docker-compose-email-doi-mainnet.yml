@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:1.22.0
     environment:
-      - SERVER_NAME="${SERVER_NAME}"
+      - SERVER_NAME=${SERVER_NAME}
     ports:
       - "443:443"
     volumes:
@@ -52,17 +52,17 @@ services:
     environment:
       - DOICHAIN_DAPP_VER=v0.0.9.114
       - MONGO_URL="mongodb://mongo:27017"
-      - DAPP_HOST="${SERVER_NAME}"    
+      - DAPP_HOST=${SERVER_NAME}   
       - DAPP_PORT=3000
       - RPC_HOST=doichain 
       - RPC_PORT=8339   
-      - RPC_USER="${RPC_USER}"
-      - RPC_PASSWORD="${RPC_PASSWORD}"
-      - DAPP_SMTP_USER="${DAPP_SMTP_USER}"
-      - DAPP_SMTP_HOST="${DAPP_SMTP_HOST}"
-      - DAPP_SMTP_PASS="${DAPP_SMTP_PASS}"
-      - DAPP_SMTP_PORT="${DAPP_SMTP_PORT}"
-      - DAPP_SMTP_DEFAULT_FROM="${DAPP_SMTP_DEFAULT_FROM}"
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}"
+      - DAPP_SMTP_USER=${DAPP_SMTP_USER}
+      - DAPP_SMTP_HOST=${DAPP_SMTP_HOST}
+      - DAPP_SMTP_PASS=${DAPP_SMTP_PASS}
+      - DAPP_SMTP_PORT=${DAPP_SMTP_PORT}
+      - DAPP_SMTP_DEFAULT_FROM=${DAPP_SMTP_DEFAULT_FROM}
 
 regtest-mongo:
   image: "mongo:3.2"
