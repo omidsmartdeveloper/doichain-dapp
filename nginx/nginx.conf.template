@@ -19,7 +19,7 @@ server {
     ssl_dhparam /etc/letsencrypt/conf/ssl-dhparams.pem;
     
     location / {
-    	proxy_pass http://dapp:3000;
+    	proxy_pass http://${SERVER_NAME}:3000;
     	proxy_set_header Host $host;
     	proxy_cache_bypass $http_upgrade;
     }
