@@ -34,8 +34,7 @@ When starting ```docker-compose -f docker-compose-mining.yml up -d``` the bitcoi
 2. Edit docker
 
 ## Usage for Email Double-Opt validator (you validate your own DOIs of your own email domains)
-1. Clone this repo or download this file 
-    - ```wget https://raw.githubusercontent.com/inspiraluna/doichain-install/main/docker-compose.yml```
+1. Clone this repo
 2. Run ```cp .env.eamil-doi.example .env``` and edit .env accordingly
         - SERVER_NAME=public server name and domain (e.g. doichain.your-company.com)
         - RPC_USER=admin

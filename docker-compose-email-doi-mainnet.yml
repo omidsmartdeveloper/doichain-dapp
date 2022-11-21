@@ -6,7 +6,7 @@ services:
     environment:
       - SERVER_NAME="${SERVER_NAME}"
     ports:
-      - "4443:4443"
+      - "443:443"
     volumes:
       - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template
       - ./nginx/docker-entrypoint.d/:/docker-entrypoint.d/
@@ -79,7 +79,6 @@ regtest-mongo:
       ipv4_address: 172.20.0.9
 
 volumes:
-  bitcoin-volume:
   doichain-volume:
   dapp-volume:
   mongo-volume:
