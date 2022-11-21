@@ -8,19 +8,26 @@ server {
     location /.well-known/acme-challenge/ {
     	root /var/www/certbot;
     }
-}
-server {
-    listen 443 ssl;
-    server_name ${SERVER_NAME};
-
-    ssl_certificate /etc/letsencrypt/live/${SERVER_NAME}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${SERVER_NAME}/privkey.pem;
-    include /etc/letsencrypt/conf/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/conf/ssl-dhparams.pem;
-    
     location / {
     	proxy_pass http://${SERVER_NAME}:3000;
     	proxy_set_header Host $host;
     	proxy_cache_bypass $http_upgrade;
     }
 }
+
+#
+#server {
+#    listen 443 ssl;
+#    server_name ${SERVER_NAME};
+#
+#    ssl_certificate /etc/letsencrypt/live/${SERVER_NAME}/fullchain.pem;
+#    ssl_certificate_key /etc/letsencrypt/live/${SERVER_NAME}/privkey.pem;
+#    include /etc/letsencrypt/conf/options-ssl-nginx.conf;
+#    ssl_dhparam /etc/letsencrypt/conf/ssl-dhparams.pem;
+#    
+#    location / {
+#    	proxy_pass http://${SERVER_NAME}:3000;
+#    	proxy_set_header Host $host;
+#    	proxy_cache_bypass $http_upgrade;
+#    }
+#}
