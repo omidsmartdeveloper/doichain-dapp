@@ -8,6 +8,7 @@ services:
     depends_on:
       - dapp
     ports:
+      - 80:80
       - "443:443"
     volumes:
       - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template

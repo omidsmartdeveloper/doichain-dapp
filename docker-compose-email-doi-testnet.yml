@@ -10,6 +10,7 @@ services:
       - SERVER_NAME=${SERVER_NAME}
       - DAPP_PORT=${DAPP_PORT}
     ports:
+      - 80:80
       - "443:443"
     volumes:
       - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template
@@ -57,7 +58,7 @@ services:
     hostname: dapp
     # build: ./dapp
     ports:
-      - "4000:4000"
+      - "4000:3000"
     volumes:
       - dapp-volume:/home/doichain/data
     environment:
