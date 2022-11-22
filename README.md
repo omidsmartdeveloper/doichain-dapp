@@ -31,22 +31,22 @@ When starting ```docker-compose -f docker-compose-mining.yml up -d``` the bitcoi
 
 ## Usage for Email Double Opt-In request server (you want a Double Opt-In) for your customers or email partners
 1. Clone this repo or download this file.
-2. Edit docker
+2. Run ```cp .env.mining.example .env``` and edit .env accordingly
 
 ## Usage for Email Double-Opt validator (you validate your own DOIs of your own email domains)
 1. Clone this repo
-2. Run ```cp .env.eamil-doi.example .env``` and edit .env accordingly
-        - SERVER_NAME=public server name and domain (e.g. doichain.your-company.com)
-        - RPC_USER=admin
-        - RPC_PASSWORD=password (please change)
-        - DAPP_SMTP_HOST=your smtp server (e.g. google mail)
-        - DAPP_SMTP_USER=your smtp user (e.g. google username)
-        - DAPP_SMTP_PASS=your smtp password 
-        - DAPP_SMTP_PORT=your smtp port (e.g. 25,587)
-        - DAPP_SMTP_DEFAULT_FROM=the email address which is going to be used when sending Double Opt-In confirmation email to your email ussers
-    3. Run ```docker-compose -f docker-compose-email-doi-mainnet.yml up -d``` in order to start the Doichain mainnet environment or 
-    4. Run ```docker-compose -f docker-compose-email-doi-testnet.yml up -d``` in order to start the Doichain testnet environment 
-    5. Run ```docker-compose down -f docker-compose-email-doi-mainnet.yml``` or  ```docker-compose down -f docker-compose-email-doi-testnet.yml``` in order to stop the Doichain Node environment
+2. Run ```cp .env.email-doi.example .env``` and edit .env accordingly
+    - SERVER_NAME=public server name and domain (e.g. doichain.your-company.com)
+    - RPC_USER=admin
+    - RPC_PASSWORD=password (please change)
+    - DAPP_SMTP_HOST=your smtp server (e.g. google mail)
+    - DAPP_SMTP_USER=your smtp user (e.g. google username)
+    - DAPP_SMTP_PASS=your smtp password 
+    - DAPP_SMTP_PORT=your smtp port (e.g. 25,587)
+    - DAPP_SMTP_DEFAULT_FROM=the email address which is going to be used when sending Double Opt-In confirmation email to your email ussers
+3. Run ```docker-compose -f docker-compose-email-doi-mainnet.yml up -d``` in order to start the Doichain mainnet environment or 
+4. Run ```docker-compose -f docker-compose-email-doi-testnet.yml up -d``` in order to start the Doichain testnet environment 
+5. Run ```docker-compose down -f docker-compose-email-doi-mainnet.yml``` or  ```docker-compose down -f docker-compose-email-doi-testnet.yml``` in order to stop the Doichain Node environment
 
 
 ## General usage examples 
