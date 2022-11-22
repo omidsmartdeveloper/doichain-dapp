@@ -4,6 +4,7 @@ services:
   nginx:
     image: nginx:1.22.0
     depends_on:
+      - certbot
       - dapp
     environment:
       - SERVER_NAME=${SERVER_NAME}
