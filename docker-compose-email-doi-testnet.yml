@@ -56,7 +56,7 @@ services:
       - doichain-testnet
     container_name: dapp
     hostname: dapp
-    # build: ./dapp
+    build: ./dapp
     ports:
       - "4000:3000"
     volumes:
@@ -66,8 +66,8 @@ services:
       - DOICHAIN_DAPP_VER=v0.0.9.116
       - MONGO_URL="mongodb://mongo:27017"
       - DAPP_HOST=${SERVER_NAME}
-      - DAPP_PORT=${DAPP_PORT}
-      - RPC_HOST=doichain-testnet
+      - DAPP_PORT=443
+      - RPC_HOST=${RPC_HOST}
       - RPC_PORT=18339   
       - RPC_USER=${RPC_USER}
       - RPC_PASSWORD=${RPC_PASSWORD}

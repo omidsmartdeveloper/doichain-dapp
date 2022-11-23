@@ -60,7 +60,7 @@ services:
       - DOICHAIN_DAPP_VER=v0.0.9.116
       - MONGO_URL="mongodb://mongo:27017"
       - DAPP_HOST=${SERVER_NAME}   
-      - DAPP_PORT=3000
+      - DAPP_PORT=443
       - RPC_HOST=doichain 
       - RPC_PORT=8339   
       - RPC_USER=${RPC_USER}
