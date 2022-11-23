@@ -47,9 +47,10 @@ When starting ```docker-compose -f docker-compose-mining.yml up -d``` the bitcoi
 3. Run ```docker-compose -f docker-compose-email-doi-mainnet.yml up -d``` in order to start the Doichain mainnet environment or 
 4. Run ```docker-compose -f docker-compose-email-doi-testnet.yml up -d``` in order to start the Doichain testnet environment 
 5. Run ```docker-compose down -f docker-compose-email-doi-mainnet.yml``` or  ```docker-compose down -f docker-compose-email-doi-testnet.yml``` in order to stop the Doichain Node environment
+6. Run ```./init-letsencrypt.sh``` in order to replace the generated self signed ssl cert wih a certificate signed by letsencrypt.
 
 
-## General usage examples 
+## General examples  
 ### Basics to navigate with Doichain and Docker compose
 - show running containers: ```docker-compose ps```
 - show all logs of running containers ```docker-compose logs``` 

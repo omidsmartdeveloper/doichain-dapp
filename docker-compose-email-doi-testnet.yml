@@ -50,7 +50,7 @@ services:
         ipv4_address: 172.20.0.16
 
   dapp:
-    image: doichain/dapp:v0.0.9.115
+    image: doichain/dapp:v0.0.9.116
     depends_on:
       - mongo
       - doichain-testnet
@@ -61,8 +61,9 @@ services:
       - "4000:3000"
     volumes:
       - dapp-volume:/home/doichain/data
+      - doichain-volume:/home/doichain/.doichain
     environment:
-      - DOICHAIN_DAPP_VER=v0.0.9.115
+      - DOICHAIN_DAPP_VER=v0.0.9.116
       - MONGO_URL="mongodb://mongo:27017"
       - DAPP_HOST=${SERVER_NAME}
       - DAPP_PORT=${DAPP_PORT}
