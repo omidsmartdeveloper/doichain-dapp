@@ -1,6 +1,6 @@
 #!/bin/sh
-echo 'entry point was ${SERVER_NAME} with DAPP_PORT ${DAPP_PORT} running' > /tmp/was-running-${SERVER_NAME}.txt
-envsubst '${SERVER_NAME} ${DAPP_PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/conf.d/${SERVER_NAME}.conf
+echo 'entry point was ${SERVER_NAME} with HTTP_PORT ${HTTP_PORT} running' > /tmp/was-running-${SERVER_NAME}.txt
+envsubst '${SERVER_NAME} ${HTTP_PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/conf.d/${SERVER_NAME}.conf
 data_path=/etc/letsencrypt
 mkdir -p "$data_path/conf"
 curl -s https://raw.githubusercontent.com/certbot/certbot/0.29.x/certbot-nginx/certbot_nginx/options-ssl-nginx.conf > "$data_path/conf/options-ssl-nginx.conf"
