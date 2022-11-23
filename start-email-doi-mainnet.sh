@@ -1,2 +1,2 @@
 cp docker-compose-email-doi-mainnet.yml docker-compose.yml
-docker compose up 
+docker compose up -d 
