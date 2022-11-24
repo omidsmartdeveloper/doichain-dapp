@@ -35,7 +35,9 @@ services:
     volumes:
       - doichain-volume:/home/doichain/data
     environment:
-      - RPC_PASSWORD=password
+      - DAPP_URL=http://dapp:3000
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
       - RPC_ALLOW_IP=0.0.0.0/0 #::/0
     stdin_open: true
     tty: true
