@@ -38,7 +38,7 @@ ENV RPC_USER ""
 
 RUN apt update -qq && apt install -qq -y --no-install-recommends \
   bash sudo git curl jq ca-certificates \ 
-  && (curl https://install.meteor.com/  | sh) \
+  && ( curl https://install.meteor.com/?release=1.12.1 | sh ) \
   && adduser --disabled-password --gecos '' doichain \
 	&& adduser doichain sudo \
 	&& echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \ 

@@ -48,6 +48,11 @@ When starting ```docker-compose -f docker-compose-mining.yml up -d``` the bitcoi
 4. Run ```docker-compose -f docker-compose-email-doi-testnet.yml up -d``` in order to start the Doichain testnet environment 
 5. Run ```docker-compose down -f docker-compose-email-doi-mainnet.yml``` or  ```docker-compose down -f docker-compose-email-doi-testnet.yml``` in order to stop the Doichain Node environment
 6. Run ```./init-letsencrypt.sh``` in order to replace the generated self signed ssl cert wih a certificate signed by letsencrypt.
+7. Conuslt Doichain dApp RPC-API on how to:
+    - authenticate https://github.com/Doichain/dapp/blob/master/doc/en/json-rpc-api.md#authentication
+    - request a doi https://github.com/Doichain/dapp/blob/master/doc/en/json-rpc-api.md#create-opt-in
+    - add another user / project https://github.com/Doichain/dapp/blob/master/doc/en/json-rpc-api.md#create-user
+    - add / update a user / project with special template, sender name, subject requirements  
 
 
 ## General examples  
