@@ -72,6 +72,9 @@ services:
       - DAPP_SMTP_PASS=${DAPP_SMTP_PASS}
       - DAPP_SMTP_PORT=${DAPP_SMTP_PORT}
       - DAPP_SMTP_DEFAULT_FROM=${DAPP_SMTP_DEFAULT_FROM}
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.8
 
   mongo:
     image: "mongo:3.2"
@@ -86,7 +89,7 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.9
-        
+
 volumes:
   doichain-volume:
   dapp-volume:
