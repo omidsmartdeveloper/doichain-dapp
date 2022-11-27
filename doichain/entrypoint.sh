@@ -45,6 +45,7 @@ server=1
 wallet=1
 rpcuser=${RPC_USER}
 rpcpassword=${RPC_PASSWORD}
+rpcbind=0.0.0.0
 rpcallowip=${RPC_ALLOW_IP}
 txindex=1
 fallbackfee=0.0002
