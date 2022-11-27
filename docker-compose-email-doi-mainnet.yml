@@ -73,20 +73,20 @@ services:
       - DAPP_SMTP_PORT=${DAPP_SMTP_PORT}
       - DAPP_SMTP_DEFAULT_FROM=${DAPP_SMTP_DEFAULT_FROM}
 
-mongo:
-  image: "mongo:3.2"
-  container_name: mongo
-  hostname: mongo
-  expose:
-    - "27017"
-  ports:
-    - "28017:27017"
-  volumes: 
-    -  mongo-volume:/data
-  networks:
-    static-network:
-      ipv4_address: 172.20.0.9
-
+  mongo:
+    image: "mongo:3.2"
+    container_name: mongo
+    hostname: mongo
+    expose:
+      - "27017"
+    ports:
+      - "28017:27017"
+    volumes: 
+      -  mongo-volume:/data
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.9
+        
 volumes:
   doichain-volume:
   dapp-volume:
