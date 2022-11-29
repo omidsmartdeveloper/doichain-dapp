@@ -1,5 +1,4 @@
 FROM node:14
-#FROM ubuntu:20.04 AS buck
 
 ARG DOICHAIN_VER=master
 ARG DOICHAIN_DAPP_VER=master
@@ -37,12 +36,12 @@ ENV RPC_PORT_TESTNET 18339
 ENV RPC_PORT_REGTEST 18332
 ENV RPC_USER ""
 
-RUN adduser --disabled-password --gecos '' doichain && \
-	adduser doichain sudo && \
-	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \ 
-  apt update -qq && apt install -qq -y --no-install-recommends \
-  bash git curl jq ca-certificates \ 
-  && (curl https://install.meteor.com/  | sh) \
+RUN apt update -qq && apt install -qq -y --no-install-recommends \
+  bash sudo git curl jq ca-certificates \ 
+  && ( curl https://install.meteor.com/?release=1.12.1 | sh ) \
+  && adduser --disabled-password --gecos '' doichain \
+	&& adduser doichain sudo \
+	&& echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \ 
   && cd /home/doichain  \ 
   && git clone --branch ${DOICHAIN_DAPP_VER} https://github.com/Doichain/dapp.git && chown -R doichain dapp && cd dapp
 
@@ -50,9 +49,8 @@ RUN adduser --disabled-password --gecos '' doichain && \
 WORKDIR /home/doichain
 USER doichain
 RUN cd /home/doichain \
-&& mkdir -p data \
-&& cd data && \
-	mkdir dapp && cd dapp && \
+&& mkdir -p data/dapp \
+&& cd data/dapp && \
 	mkdir -p .meteor/local && \
 	mkdir -p local 
 

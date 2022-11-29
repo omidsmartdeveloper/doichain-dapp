@@ -1,0 +1,71 @@
+version: '3.7'
+
+services:
+  bitcoin: 
+    image: "doichain/bitcoind:v0.20.0"
+    container_name: bitcoin
+    hostname: bitcoin
+    ports:
+      - "8332:8332"
+      - "8333:8333"
+    volumes:
+     - bitcoin-volume:/home/bitcoin/data
+    environment:
+      - RPC_PASSWORD=password
+      - RPC_ALLOW_IP=0.0.0.0/0 #::/0
+    stdin_open: true
+    tty: true
+    networks:
+      static-network:
+        ipv4_address: 172.21.0.5
+
+  doichain:
+   image: "doichain/core:dc0.20.1.13" 
+   container_name: doichain
+   hostname: doichain
+   ports:
+     - "8339:8339"
+   volumes:
+     - doichain-volume:/home/doichain/data
+   environment:
+     - RPC_PASSWORD=password
+     - RPC_ALLOW_IP=0.0.0.0/0 #::/0
+   stdin_open: true
+   tty: true
+   networks:
+     static-network:
+       ipv4_address: 172.21.0.6
+
+  p2pool:
+    image: "doichain/p2pool:v34.0"
+    container_name: p2pool 
+    hostname: p2pool
+    stdin_open: true
+    tty: true
+    ports: 
+      - "9332:9332"
+    volumes:
+      - bitcoin-volume:/data/bitcoin
+      - doichain-volume:/data/doichain
+    environment:
+      - P2POOL_DOICHAIN_DEFAULT_ADDR=${P2POOL_DOICHAIN_DEFAULT_ADDR}
+      - P2POOL_BITCOIN_DEFAULT_ADDR=${P2POOL_BITCOIN_DEFAULT_ADDR}
+      - DOICHAIN_RPC_USER=admin
+      - DOICHAIN_RPC_PASSWORD=password
+      - DOICHAIN_RPC_HOST=doichain
+      - DOICHAIN_RPC_PORT=8339
+    networks:
+      static-network:
+        ipv4_address: 172.21.0.8
+
+volumes:
+  bitcoin-volume:
+  doichain-volume:
+  dapp-volume:
+
+networks:
+  static-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

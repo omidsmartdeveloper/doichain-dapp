@@ -1,0 +1,107 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:1.22.0
+    depends_on:
+      - certbot
+      - dapp
+    environment:
+      - SERVER_NAME=${SERVER_NAME}
+      - DAPP_PORT=${DAPP_PORT}
+    ports:
+      - 80:80
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template
+      - ./nginx/docker-entrypoint.d/:/docker-entrypoint.d/
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/docker-entrypoint.sh"
+    command: ["nginx"]
+
+  certbot:
+    image: certbot/certbot:v1.32.0
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    
+  doichain-testnet:
+    image: "doichain/core:dc0.20.1.13" 
+    container_name: doichain-testnet
+    hostname: doichain-testnet
+    ports:
+      - "18339:18339"
+    volumes:
+      - doichain-volume:/home/doichain/data
+    environment:
+      - TESTNET=true
+      - CONNECTION_NODE=157.90.175.84
+      - DAPP_URL=http://dapp:3000
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
+      - RPC_ALLOW_IP=0.0.0.0/0 #::/0
+    stdin_open: true
+    tty: true
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.16
+
+  dapp:
+    image: doichain/dapp:v0.0.9.117
+    depends_on:
+      - mongo
+      - doichain-testnet
+    container_name: dapp
+    hostname: dapp
+    build: ./dapp
+    ports:
+      - "4000:3000"
+    volumes:
+      - dapp-volume:/home/doichain/data
+      - doichain-volume:/home/doichain/.doichain
+    environment:
+      - DOICHAIN_DAPP_VER=v0.0.9.117
+      - MONGO_URL="mongodb://mongo:27017"
+      - DAPP_HOST=${SERVER_NAME}
+      - DAPP_PORT=443
+      - RPC_HOST=${RPC_HOST}
+      - RPC_PORT=18339   
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
+      - DAPP_SMTP_USER=${DAPP_SMTP_USER}
+      - DAPP_SMTP_HOST=${DAPP_SMTP_HOST}
+      - DAPP_SMTP_PASS=${DAPP_SMTP_PASS}
+      - DAPP_SMTP_PORT=${DAPP_SMTP_PORT}
+      - DAPP_SMTP_DEFAULT_FROM=${DAPP_SMTP_DEFAULT_FROM}
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.7
+  
+  mongo:
+    image: "mongo:3.2"
+    container_name: mongo
+    hostname: mongo
+    expose:
+      - "27017"
+    ports:
+      - "28017:27017"
+    volumes: 
+      -  mongo-volume:/data
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.9
+
+volumes:
+  doichain-volume:
+  dapp-volume:
+  mongo-volume:
+
+networks:
+  static-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
