@@ -5,7 +5,7 @@ ENV DOICHAIN_VER $DOICHAIN_VER
 
 #Setup run vars
 ENV CONFIRM_ADDRESS ""
-ENV CONNECTION_NODE 5.9.154.226
+ENV CONNECTION_NODE 116.203.34.154
 ENV DAPP_URL http://localhost:3000
 ENV NODE_PORT 8338
 ENV NODE_PORT_TESTNET 18338
@@ -21,6 +21,15 @@ ENV RPC_USER admin
 
 #Install dependencies
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	libtool \
+	autotools-dev \
+	automake \
+	pkg-config \
+	bsdmainutils \
+	python3 \
+	libevent-dev \
+	libboost-system-dev libboost-filesystem-dev libboost-test-dev libboost-thread-dev \
+	libzmq3-dev \
 	autoconf \
 	apt-utils \
 	bsdmainutils \
@@ -28,17 +37,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	curl \
 	jq \
 	vim \
-	jq \
 	bc \
-#	bsdtar \
 	dos2unix \
 	git \
-	libboost-all-dev \
-	libevent-dev \
-	libssl-dev \
-	libtool \
 	locales \
-	pkg-config \
 	sudo \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -77,9 +79,9 @@ RUN echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4
 #Install doichain-core
 WORKDIR /home/doichain
 RUN mkdir .doichain && \
-	sudo git clone --branch $DOICHAIN_VER https://github.com/Le-Space/namecoin-core doichain-core && \
+	sudo git clone --branch $DOICHAIN_VER https://github.com/Doichain/doichain-core.git && \
 	cd doichain-core && \
-	sudo ./autogen.sh && sudo ./configure --disable-tests  --disable-gui-tests && \
+	sudo ./autogen.sh && sudo ./configure --without-gui --disable-tests  --disable-gui-tests && \
 	sudo make && \
 	sudo make install
 
