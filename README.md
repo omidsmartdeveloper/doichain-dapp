@@ -22,8 +22,8 @@ This repository provides the necessary Docker Compose file, Dockerfiles and/or i
 4. Run ```docker-compose down``` in order to stop the Doichain Node environment
 
 ***Remark***
-When starting ```docker-compose -f docker-compose-mining.yml up -d``` the bitcoin service downloads a pruned bitcoin blockchain. This takes a while. It will be extracted into the bitcoin docker container. The p2pool service is then showing errors in the logs that it can't connect to bitcoin rpc! (see: ```docker compose exec p2pool tail -f /home/p2pool/nohup.out```) 
-1. You can connect to the bitcoin container with ```docker compose exec bitcoin bash``` and ```cd .bitcoin``` and check if the blockchain was already downloaded completely and all blocks synchronized.
+When starting ```docker-compose -f docker-compose-mining.yml up -d``` the bitcoin service downloads a pruned Bitcoin blockchain. This takes a while. It will be extracted into the Bitcoin Docker container. The p2pool service is then showing errors in the logs, it can't connect to bitcoin rpc! (see: ```docker compose exec p2pool tail -f /home/p2pool/nohup.out```) 
+1. You can connect to the bitcoin container with ```docker compose exec bitcoin bash``` and ```cd .bitcoin``` and check if the blockchain was downloaded completely and all blocks synchronized.
 2. If the blockchain was downloaded it will sync the missing blocks. You can watch the process via ```docker compose exec bitcoin tail -f /home/bitcoin/.bitcoin/debug.log```
 3. As soon as p2pool, bitcoind and doichaind service is running, p2pool mining pool can be access via the ip of the node and port 9332!
 4. Bitcoind rpc running on standard port 8332 (Bitcoin p2p on default 8333)
