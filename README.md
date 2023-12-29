@@ -15,7 +15,7 @@ This repository provides the necessary Docker Compose file, Dockerfiles and/or i
 
 ## Usage for p2pool mining DOI and BTC 
 1. Clone this repo.
-2. Run ```cp .env.mining.example .env``` and edit .env in order to tell P2pool where to mint the mined coins. 
+2. Run ```cp .env.mining.example .env``` and edit .env in order to tell P2pool where to mine coins. 
         - P2POOL_DOICHAIN_DEFAULT_ADDR and 
         - P2POOL_BITCOIN_DEFAULT_ADDR  
 3. Run ```docker-compose -f docker-compose-mining.yml up -d``` in order to start a Doichain mining environment
